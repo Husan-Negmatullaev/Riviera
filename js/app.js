@@ -61,6 +61,42 @@ function sendMail(){
     }
 }
 
+const body = document.querySelector('body')
+const modalForm = document.getElementById('exampleModal')
+const modalBackdrop = document.createElement('div')
+let interval = false 
+
+function closeFunc(){
+    body.classList.remove('modal-open')
+    body.style.cssText = ''
+    modalForm.classList.remove('show')
+    modalForm.removeAttribute('role')
+    modalForm.removeAttribute('aria-modal')
+    modalForm.style.display = 'none'
+    modalBackdrop.className = ''
+    body.appendChild(modalBackdrop)
+    interval = true
+}
+
+function funcBefore(){
+    body.classList.add('modal-open')
+    body.style.cssText = 'overflow: hidden; padding-right: 17px;'
+    modalForm.classList.add('show')
+    modalForm.setAttribute('role', 'dialog')
+    modalForm.setAttribute('aria-modal', 'true')
+    modalForm.style.display = 'block'
+    modalBackdrop.className = 'modal-backdrop fade show'
+    body.appendChild(modalBackdrop)
+    interval = true
+}
+  
+document.addEventListener('DOMContentLoaded', () => {
+    let interval = setInterval(() => {
+        funcBefore()
+        clearInterval(interval)
+    }, 3000)
+})
+
 $('.owl-carousel').owlCarousel({
     loop: false,
     margin: 5,
